@@ -1,4 +1,4 @@
-package s0i4x.satoshidevlib.mystvale;
+package io.mysticcraft.mystvale;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
  *
  * <p>Usage: just import and reference the class:</p>
  * <pre>{@code
- * import s0i4x.satoshidevlib.mystvale.MystVale;
+ * import io.mysticcraft.mystvale.MystVale;
  *
  * // the static block runs automatically on class load
  * MystVale.ready();
@@ -54,7 +54,6 @@ public final class MystVale {
     }
 
     private MystVale() {
-        // non-instantiable
     }
 
     /**
@@ -68,6 +67,5 @@ public final class MystVale {
      * No-op method — calling this forces class loading and triggers the static block.
      */
     public static void ready() {
-        // intentionally empty; the static initializer does all the work
     }
 }

@@ -1,17 +1,16 @@
-package s0i4x.satoshidevlib.config;
+package io.mysticcraft.config;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.time.Duration;
-import java.util.Objects;
 
 /**
- * Immutable configuration for the Satoshi SDK client.
- * Use {@link SatoshiConfig.Builder} to construct instances.
+ * Immutable configuration for the MysticCraft SDK client.
+ * Use {@link MysticCraftConfig.Builder} to construct instances.
  */
-public final class SatoshiConfig {
+public final class MysticCraftConfig {
 
-    private static final String DEFAULT_BASE_URL = "https://api.satoshidevlib.com";
+    private static final String DEFAULT_BASE_URL = "https://api.mysticcraft.io";
     private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(30);
     private static final int DEFAULT_MAX_RETRIES = 3;
 
@@ -22,8 +21,8 @@ public final class SatoshiConfig {
     private final Proxy proxy;
     private final boolean debugMode;
 
-    private SatoshiConfig(Builder builder) {
-        this.apiKey = Objects.requireNonNull(builder.apiKey, "apiKey must not be null");
+    private MysticCraftConfig(Builder builder) {
+        this.apiKey = builder.apiKey; // nullable — auth is optional
         this.baseUrl = builder.baseUrl != null ? builder.baseUrl : DEFAULT_BASE_URL;
         this.timeout = builder.timeout != null ? builder.timeout : DEFAULT_TIMEOUT;
         this.maxRetries = builder.maxRetries > 0 ? builder.maxRetries : DEFAULT_MAX_RETRIES;
@@ -105,8 +104,8 @@ public final class SatoshiConfig {
             return this;
         }
 
-        public SatoshiConfig build() {
-            return new SatoshiConfig(this);
+        public MysticCraftConfig build() {
+            return new MysticCraftConfig(this);
         }
     }
 }

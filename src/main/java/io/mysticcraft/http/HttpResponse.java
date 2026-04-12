@@ -1,4 +1,4 @@
-package s0i4x.satoshidevlib.http;
+package io.mysticcraft.http;
 
 import java.util.Collections;
 import java.util.Map;

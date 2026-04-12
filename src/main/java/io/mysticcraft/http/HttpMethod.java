@@ -1,4 +1,4 @@
-package s0i4x.satoshidevlib.http;
+package io.mysticcraft.http;
 
 /**
  * Supported HTTP methods.

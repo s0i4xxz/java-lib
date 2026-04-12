@@ -1,9 +1,9 @@
-package s0i4x.satoshidevlib.exceptions;
+package io.mysticcraft.exceptions;
 
 /**
  * Thrown when the server returns a 5xx server error.
  */
-public class ServerException extends SatoshiException {
+public class ServerException extends MysticCraftException {
 
     public ServerException(String message, int statusCode, String errorType) {
         super(message, statusCode, errorType);

@@ -1,4 +1,4 @@
-package s0i4x.satoshidevlib.models;
+package io.mysticcraft.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,9 +12,7 @@ public class ErrorResponse {
     @JsonProperty("error")
     private ErrorDetail error;
 
-    public ErrorDetail getError() {
-        return error;
-    }
+    public ErrorDetail getError() { return error; }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ErrorDetail {
@@ -27,16 +25,8 @@ public class ErrorResponse {
         @JsonProperty("code")
         private String code;
 
-        public String getType() {
-            return type;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public String getCode() {
-            return code;
-        }
+        public String getType() { return type; }
+        public String getMessage() { return message; }
+        public String getCode() { return code; }
     }
 }

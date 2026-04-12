@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.s0i4x</groupId>
-    <artifactId>satoshidevlib</artifactId>
-    <version>1.0.0</version>
+    <groupId>com.github.s0i4xxz</groupId>
+    <artifactId>java-lib</artifactId>
+    <version>2.0.0</version>
     <packaging>jar</packaging>
 
-    <name>SatoshiDevLib</name>
-    <description>A production-ready Java SDK for the Satoshi API</description>
-    <url>https://github.com/s0i4x/satoshidevlib</url>
+    <name>MysticCraft</name>
+    <description>A public Java SDK for Minecraft modding and server tools</description>
+    <url>https://github.com/s0i4xxz/java-lib</url>
 
     <licenses>
         <license>
@@ -23,15 +23,15 @@
 
     <developers>
         <developer>
-            <id>s0i4x</id>
-            <name>s0i4x</name>
+            <id>s0i4xxz</id>
+            <name>s0i4xxz</name>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/s0i4x/satoshidevlib.git</connection>
-        <developerConnection>scm:git:ssh://github.com:s0i4x/satoshidevlib.git</developerConnection>
-        <url>https://github.com/s0i4x/satoshidevlib</url>
+        <connection>scm:git:git://github.com/s0i4xxz/java-lib.git</connection>
+        <developerConnection>scm:git:ssh://github.com:s0i4xxz/java-lib.git</developerConnection>
+        <url>https://github.com/s0i4xxz/java-lib</url>
     </scm>
 
     <properties>

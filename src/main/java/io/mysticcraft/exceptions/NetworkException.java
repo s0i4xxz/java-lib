@@ -1,9 +1,9 @@
-package s0i4x.satoshidevlib.exceptions;
+package io.mysticcraft.exceptions;
 
 /**
  * Thrown when a network-level failure occurs (timeout, connection refused, etc.).
  */
-public class NetworkException extends SatoshiException {
+public class NetworkException extends MysticCraftException {
 
     public NetworkException(String message) {
         super(message);

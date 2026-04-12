@@ -1,4 +1,4 @@
-package s0i4x.satoshidevlib.models;
+package io.mysticcraft.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -29,33 +29,13 @@ public class ChatResponse {
     @JsonProperty("usage")
     private Usage usage;
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
+    public String getObject() { return object; }
+    public long getCreated() { return created; }
+    public String getModel() { return model; }
+    public List<Choice> getChoices() { return choices; }
+    public Usage getUsage() { return usage; }
 
-    public String getObject() {
-        return object;
-    }
-
-    public long getCreated() {
-        return created;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public List<Choice> getChoices() {
-        return choices;
-    }
-
-    public Usage getUsage() {
-        return usage;
-    }
-
-    /**
-     * Returns the content text of the first choice, or null if unavailable.
-     */
     public String getContent() {
         if (choices != null && !choices.isEmpty()) {
             Choice first = choices.get(0);
@@ -82,17 +62,9 @@ public class ChatResponse {
         @JsonProperty("finish_reason")
         private String finishReason;
 
-        public int getIndex() {
-            return index;
-        }
-
-        public ChatRequest.Message getMessage() {
-            return message;
-        }
-
-        public String getFinishReason() {
-            return finishReason;
-        }
+        public int getIndex() { return index; }
+        public ChatRequest.Message getMessage() { return message; }
+        public String getFinishReason() { return finishReason; }
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -106,16 +78,8 @@ public class ChatResponse {
         @JsonProperty("total_tokens")
         private int totalTokens;
 
-        public int getPromptTokens() {
-            return promptTokens;
-        }
-
-        public int getCompletionTokens() {
-            return completionTokens;
-        }
-
-        public int getTotalTokens() {
-            return totalTokens;
-        }
+        public int getPromptTokens() { return promptTokens; }
+        public int getCompletionTokens() { return completionTokens; }
+        public int getTotalTokens() { return totalTokens; }
     }
 }

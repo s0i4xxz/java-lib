@@ -1,9 +1,9 @@
-package s0i4x.satoshidevlib.http;
+package io.mysticcraft.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import s0i4x.satoshidevlib.config.SatoshiConfig;
-import s0i4x.satoshidevlib.exceptions.*;
-import s0i4x.satoshidevlib.models.ErrorResponse;
+import io.mysticcraft.config.MysticCraftConfig;
+import io.mysticcraft.exceptions.*;
+import io.mysticcraft.models.ErrorResponse;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -18,16 +18,16 @@ import java.util.logging.Logger;
  * Internal HTTP client that handles connections, retries, and error mapping.
  * Thread-safe: instances can be shared across threads.
  */
-public final class SatoshiHttpClient {
+public final class MysticCraftHttpClient {
 
-    private static final Logger LOG = Logger.getLogger(SatoshiHttpClient.class.getName());
-    private static final String USER_AGENT = "SatoshiDevLib-Java/1.0.0";
+    private static final Logger LOG = Logger.getLogger(MysticCraftHttpClient.class.getName());
+    private static final String USER_AGENT = "MysticCraft-Java/1.0.0";
     private static final String CONTENT_TYPE_JSON = "application/json";
 
-    private final SatoshiConfig config;
+    private final MysticCraftConfig config;
     private final ObjectMapper objectMapper;
 
-    public SatoshiHttpClient(SatoshiConfig config, ObjectMapper objectMapper) {
+    public MysticCraftHttpClient(MysticCraftConfig config, ObjectMapper objectMapper) {
         this.config = config;
         this.objectMapper = objectMapper;
     }
@@ -41,7 +41,7 @@ public final class SatoshiHttpClient {
             try {
                 jsonBody = objectMapper.writeValueAsString(requestBody);
             } catch (Exception e) {
-                throw new SatoshiException("Failed to serialize request body", e);
+                throw new MysticCraftException("Failed to serialize request body", e);
             }
         }
 
@@ -54,7 +54,7 @@ public final class SatoshiHttpClient {
         try {
             return objectMapper.readValue(response.getBody(), responseType);
         } catch (Exception e) {
-            throw new SatoshiException("Failed to deserialize response", e);
+            throw new MysticCraftException("Failed to deserialize response", e);
         }
     }
 
@@ -63,7 +63,7 @@ public final class SatoshiHttpClient {
      */
     private HttpResponse executeWithRetries(HttpMethod method, String path, String jsonBody) {
         int maxAttempts = config.getMaxRetries() + 1;
-        SatoshiException lastException = null;
+        MysticCraftException lastException = null;
 
         for (int attempt = 1; attempt <= maxAttempts; attempt++) {
             try {
@@ -92,7 +92,7 @@ public final class SatoshiHttpClient {
         }
 
         throw lastException != null ? lastException
-                : new SatoshiException("Request failed after " + maxAttempts + " attempts");
+                : new MysticCraftException("Request failed after " + maxAttempts + " attempts");
     }
 
     private HttpResponse execute(HttpMethod method, String path, String jsonBody) {
@@ -112,10 +112,14 @@ public final class SatoshiHttpClient {
             conn.setConnectTimeout(timeoutMs);
             conn.setReadTimeout(timeoutMs);
             conn.setRequestMethod(method.name());
-            conn.setRequestProperty("Authorization", "Bearer " + config.getApiKey());
             conn.setRequestProperty("Content-Type", CONTENT_TYPE_JSON);
             conn.setRequestProperty("Accept", CONTENT_TYPE_JSON);
             conn.setRequestProperty("User-Agent", USER_AGENT);
+
+            // Only add auth header if an API key was provided
+            if (config.getApiKey() != null && !config.getApiKey().isEmpty()) {
+                conn.setRequestProperty("Authorization", "Bearer " + config.getApiKey());
+            }
 
             if (jsonBody != null && (method == HttpMethod.POST || method == HttpMethod.PUT)) {
                 conn.setDoOutput(true);
@@ -181,7 +185,7 @@ public final class SatoshiHttpClient {
             throw new ServerException(message, status, errorType);
         }
 
-        throw new SatoshiException("Unexpected HTTP status: " + status + " — " + message, status, errorType);
+        throw new MysticCraftException("Unexpected HTTP status: " + status + " — " + message, status, errorType);
     }
 
     private static boolean isRetryable(int statusCode) {
@@ -189,7 +193,6 @@ public final class SatoshiHttpClient {
     }
 
     private static long calculateBackoff(int attempt) {
-        // Exponential backoff: 500ms, 1s, 2s, 4s, ...
         return Math.min((long) (500 * Math.pow(2, attempt - 1)), 30_000);
     }
 
@@ -220,7 +223,7 @@ public final class SatoshiHttpClient {
 
     private void debug(String format, Object... args) {
         if (config.isDebugMode()) {
-            LOG.log(Level.INFO, "[SatoshiDevLib] " + String.format(format, args));
+            LOG.log(Level.INFO, "[MysticCraft] " + String.format(format, args));
         }
     }
 
@@ -234,7 +237,7 @@ public final class SatoshiHttpClient {
             Thread.sleep(ms);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new SatoshiException("Request interrupted", e);
+            throw new MysticCraftException("Request interrupted", e);
         }
     }
 }

@@ -1,4 +1,4 @@
-package s0i4x.satoshidevlib.exceptions;
+package io.mysticcraft.exceptions;
 
 /**
  * Thrown when the server returns a 401 Unauthorized or 403 Forbidden response.

@@ -1,19 +1,18 @@
-package s0i4x.satoshidevlib.client;
+package io.mysticcraft.client;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import s0i4x.satoshidevlib.config.SatoshiConfig;
-import s0i4x.satoshidevlib.http.SatoshiHttpClient;
-import s0i4x.satoshidevlib.resources.ChatResource;
+import io.mysticcraft.config.MysticCraftConfig;
+import io.mysticcraft.http.MysticCraftHttpClient;
+import io.mysticcraft.resources.ChatResource;
 
 import java.time.Duration;
 
 /**
- * Main entry point for the SatoshiDevLib SDK.
+ * Main entry point for the MysticCraft SDK.
  *
  * <pre>{@code
- * SatoshiClient client = SatoshiClient.builder()
- *     .apiKey("sk-your-api-key")
+ * MysticCraftClient client = MysticCraftClient.builder()
  *     .build();
  *
  * ChatResponse response = client.chat().sendMessage("Hello!");
@@ -22,21 +21,21 @@ import java.time.Duration;
  *
  * This class is thread-safe. A single instance can be shared across multiple threads.
  */
-public final class SatoshiClient {
+public final class MysticCraftClient {
 
-    private final SatoshiConfig config;
-    private final SatoshiHttpClient httpClient;
+    private final MysticCraftConfig config;
+    private final MysticCraftHttpClient httpClient;
 
     // Lazily initialized resources — thread-safe via volatile + double-checked locking
     private volatile ChatResource chatResource;
 
-    private SatoshiClient(SatoshiConfig config) {
+    private MysticCraftClient(MysticCraftConfig config) {
         this.config = config;
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        this.httpClient = new SatoshiHttpClient(config, objectMapper);
+        this.httpClient = new MysticCraftHttpClient(config, objectMapper);
     }
 
     /**
@@ -58,28 +57,28 @@ public final class SatoshiClient {
     /**
      * Returns the configuration used by this client.
      */
-    public SatoshiConfig getConfig() {
+    public MysticCraftConfig getConfig() {
         return config;
     }
 
     /**
-     * Create a new builder for constructing a {@link SatoshiClient}.
+     * Create a new builder for constructing a {@link MysticCraftClient}.
      */
     public static Builder builder() {
         return new Builder();
     }
 
     /**
-     * Builder for {@link SatoshiClient}.
+     * Builder for {@link MysticCraftClient}.
      */
     public static final class Builder {
-        private final SatoshiConfig.Builder configBuilder = SatoshiConfig.builder();
+        private final MysticCraftConfig.Builder configBuilder = MysticCraftConfig.builder();
 
         private Builder() {
         }
 
         /**
-         * Set the API key for authentication (required).
+         * Set an optional API key for authenticated endpoints.
          */
         public Builder apiKey(String apiKey) {
             configBuilder.apiKey(apiKey);
@@ -127,12 +126,10 @@ public final class SatoshiClient {
         }
 
         /**
-         * Build the {@link SatoshiClient}.
-         *
-         * @throws NullPointerException if apiKey is not set
+         * Build the {@link MysticCraftClient}.
          */
-        public SatoshiClient build() {
-            return new SatoshiClient(configBuilder.build());
+        public MysticCraftClient build() {
+            return new MysticCraftClient(configBuilder.build());
         }
     }
 }
