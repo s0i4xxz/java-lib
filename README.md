@@ -17,7 +17,7 @@ A public Java SDK for Minecraft modding and server tools. No API key required â€
 <dependency>
   <groupId>com.github.s0i4xxz</groupId>
   <artifactId>java-lib</artifactId>
-  <version>v2.0.0</version>
+  <version>v4.0.0</version>
 </dependency>
 ```
 
@@ -29,7 +29,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.s0i4xxz:java-lib:v2.0.0'
+    implementation 'com.github.s0i4xxz:java-lib:v4.0.0'
 }
 ```
 

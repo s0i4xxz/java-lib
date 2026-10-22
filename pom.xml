@@ -6,7 +6,7 @@
 
     <groupId>com.github.s0i4xxz</groupId>
     <artifactId>java-lib</artifactId>
-    <version>3.0.0</version>
+    <version>4.0.0</version>
     <packaging>jar</packaging>
 
     <name>MysticCraft</name>
